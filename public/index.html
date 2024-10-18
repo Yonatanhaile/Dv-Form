@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>የግል መረጃ ቅጽ</title>
+    <style>
+        body {
+            font-family: 'Noto Sans Ethiopic', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: grid;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 10px;
+        }
+        .checkbox-group label {
+            font-weight: normal;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .required::after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>የግል መረጃ ቅጽ</h2>
+        <form action="/" method="post" id="personalInfoForm">
+            <label for="firstName" class="required">መጠሪያ ስም:</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="middleName" class="required">የአባት ስም:</label>
+            <input type="text" id="middleName" name="middleName" required>
+
+            <label for="lastName" class="required">የአያት ስም:</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label>ጾታ:</label>
+            <div class="checkbox-group">
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">ወንድ</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">ሴት</label>
+            </div>
+
+            <label for="birthDate" class="required">የልደት ቀን:</label>
+            <input type="date" id="birthDate" name="birthDate" required>
+
+            <label for="birthYear">የልደት ዓመት:</label>
+            <input type="number" id="birthYear" name="birthYear" min="1900" max="2023">
+
+            <label for="birthCity" class="required">የትውልድ ከተማ:</label>
+            <input type="text" id="birthCity" name="birthCity" required>
+
+            <label for="birthCountry" class="required">የትውልድ ሀገር:</label>
+            <input type="text" id="birthCountry" name="birthCountry" required>
+
+            <label for="currentCity" class="required">አሁን የሚኖሩበት ከተማ:</label>
+            <input type="text" id="currentCity" name="currentCity" required>
+
+            <label for="district" class="required">አሁን የሚኖሩበት ክልል (ሀገር፣ ክፍለ ሀገር፣ ግዛት):</label>
+            <input type="text" id="district" name="district" required>
+
+            <label for="addressLine" class="required">የመኖሪያ አድራሻ:</label>
+            <input type="text" id="addressLine" name="addressLine" required>
+
+            <label for="country" class="required">ሀገር:</label>
+            <input type="text" id="country" name="country" required>
+
+            <label for="phoneNumber" class="required">ስልክ ቁጥር:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+
+            <label for="email" class="required">ኢሜይል አድራሻ:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="education" class="required">ከፍተኛ የትምህርት ደረጃ:</label>
+            <select id="education" name="education" required>
+                <option value="">የትምህርት ደረጃ ይምረጡ</option>
+                <option value="highschool">ሁለተኛ ደረጃ ትምህርት</option>
+                <option value="bachelor">የመጀመሪያ ዲግሪ</option>
+                <option value="master">ማስተርስ ዲግሪ</option>
+                <option value="phd">ዶክትሬት</option>
+                <option value="other">ሌላ</option>
+            </select>
+
+            <label class="required">የጋብቻ ሁኔታ:</label>
+            <div class="checkbox-group">
+                <input type="radio" id="married" name="maritalStatus" value="married" required>
+                <label for="married">ያገባ</label>
+                <input type="radio" id="notMarried" name="maritalStatus" value="notMarried">
+                <label for="notMarried">ያላገባ</label>
+                <input type="radio" id="divorced" name="maritalStatus" value="divorced">
+                <label for="divorced">የተፋታ</label>
+            </div>
+
+            <label for="children" id="childrenLabel">የልጆች ብዛት:</label>
+            <input type="number" id="children" name="children" min="0" disabled>
+
+            <input type="submit"  value="አስገባ">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('personalInfoForm');
+            const maritalStatus = form.elements['maritalStatus'];
+            const children = document.getElementById('children');
+            const childrenLabel = document.getElementById('childrenLabel');
+
+            function updateChildrenField() {
+                if (maritalStatus.value === 'married') {
+                    children.disabled = false;
+                    children.required = true;
+                    childrenLabel.classList.add('required');
+                } else {
+                    children.disabled = true;
+                    children.required = false;
+                    childrenLabel.classList.remove('required');
+                }
+            }
+
+            maritalStatus.forEach(function(radio) {
+                radio.addEventListener('change', updateChildrenField);
+            });
+
+            form.addEventListener('submit', function(event) {
+                if (maritalStatus.value === 'married' && children.value === '') {
+                    event.preventDefault();
+                    alert('እባክዎ የልጆች ብዛትን ያስገቡ።');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
